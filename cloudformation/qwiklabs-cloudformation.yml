@@ -785,6 +785,17 @@ Resources:
               - runcmd
               - ssh
 
+              users:
+              - default
+
+              system_info:
+                default_user:
+                  name: cloud-user
+
+              password: redhat
+              chpasswd: { expire: False }
+              ssh_pwauth: True
+
               fs_setup:
               - label: etcd_storage
                 filesystem: xfs
@@ -802,13 +813,6 @@ Resources:
                   EXTRA_DOCKER_STORAGE_OPTIONS="--storage-opt dm.basesize=3G"
                 path: /etc/sysconfig/docker-storage-setup
                 owner: root:root
-
-              users:
-              - default
-
-              system_info:
-                default_user:
-                  name: cloud-user
 
               runcmd:
               - ansible-playbook /opt/lab/helpers/fetch_idm_cert.yml
@@ -1109,13 +1113,6 @@ Resources:
                   path: /etc/ansible/hosts
                   owner: cloud-user:cloud-user
              
-              password: passw0rd
-              ssh_pwauth: True
-              chpasswd:
-                list: |
-                  cloud-user:passw0rd
-                expire: False
-
               mounts:
               - [ /dev/xvdc, /var/lib/etcd, xfs, "defaults" ]
             - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
