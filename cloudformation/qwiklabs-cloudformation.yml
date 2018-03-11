@@ -1,3 +1,5 @@
+---
+
 AWSTemplateFormatVersion: 2010-09-09
 Description: Cloudformation for OpenShift Admin Test Drive
 
@@ -1111,9 +1113,11 @@ Resources:
                   path: /etc/ansible/hosts
                   owner: cloud-user:cloud-user
 
+              ssh_pwauth: True
+
               mounts:
               - [ /dev/xvdc, /var/lib/etcd, xfs, "defaults" ]
-             - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
+            - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
 
   InfraNode1NetworkInterface:
     Type: AWS::EC2::NetworkInterface
@@ -1180,13 +1184,6 @@ Resources:
               path: /etc/sysconfig/docker-storage-setup
               owner: root:root
 
-            users:
-            - default
-
-            system_info:
-              default_user:
-                name: cloud-user
-
             runcmd:
             - mkdir -p /var/lib/origin/openshift.local.volumes
 
@@ -1199,6 +1196,13 @@ Resources:
             system_info:
               default_user:
                 name: cloud-user
+
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
 
   IdmNode1NetworkInterface:
     Type: AWS::EC2::NetworkInterface
@@ -1250,6 +1254,13 @@ Resources:
             system_info:
               default_user:
                 name: cloud-user
+
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
 
             fqdn: idm.internal.${PublicHostedZone}
 
@@ -1375,6 +1386,13 @@ Resources:
                 default_user:
                   name: cloud-user
 
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
+
               runcmd:
               - [ systemctl, daemon-reload ]
               - [ systemctl, enable, workshopper ]
@@ -1490,6 +1508,13 @@ Resources:
               default_user:
                 name: cloud-user
 
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
+
   WorkerNode2NetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties:
@@ -1582,6 +1607,13 @@ Resources:
               default_user:
                 name: cloud-user
 
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
+
   WorkerNode3NetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties:
@@ -1673,6 +1705,13 @@ Resources:
             system_info:
               default_user:
                 name: cloud-user
+
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
 
   WorkerNode4NetworkInterface:
     Type: AWS::EC2::NetworkInterface
@@ -1771,6 +1810,13 @@ Resources:
               default_user:
                 name: cloud-user
 
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
+
   WorkerNode5NetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties:
@@ -1868,6 +1914,13 @@ Resources:
               default_user:
                 name: cloud-user
 
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
+
   WorkerNode6NetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties:
@@ -1964,6 +2017,13 @@ Resources:
             system_info:
               default_user:
                 name: cloud-user
+
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
+
+              ssh_pwauth: True
 
 Outputs:
    LabGuide:
