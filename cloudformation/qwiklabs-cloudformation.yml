@@ -1,5 +1,3 @@
----
-
 AWSTemplateFormatVersion: 2010-09-09
 Description: Cloudformation for OpenShift Admin Test Drive
 
@@ -783,6 +781,11 @@ Resources:
               - disk_setup
               - mounts
               - runcmd
+              ssh_pwauth: True
+              chpasswd:
+                list: |
+                  cloud-user:openshift
+                expire: false
 
               fs_setup:
               - label: etcd_storage
