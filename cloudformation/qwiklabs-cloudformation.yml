@@ -1113,7 +1113,6 @@ Resources:
               - [ /dev/xvdc, /var/lib/etcd, xfs, "defaults" ]
             - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
 
-
               password: passw0rd
               chpasswd: { expire: False }
               ssh_pwauth: True
