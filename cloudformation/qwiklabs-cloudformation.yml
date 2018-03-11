@@ -781,7 +781,6 @@ Resources:
               - disk_setup
               - mounts
               - runcmd
-              ssh_pwauth: True
 
               fs_setup:
               - label: etcd_storage
@@ -1114,7 +1113,9 @@ Resources:
 
               mounts:
               - [ /dev/xvdc, /var/lib/etcd, xfs, "defaults" ]
-            - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
+              - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
+
+              ssh_pwatuh: True
 
   InfraNode1NetworkInterface:
     Type: AWS::EC2::NetworkInterface
