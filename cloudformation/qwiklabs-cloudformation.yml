@@ -1111,11 +1111,11 @@ Resources:
                   path: /etc/ansible/hosts
                   owner: cloud-user:cloud-user
 
+              ssh_pwatuh: True
+
               mounts:
               - [ /dev/xvdc, /var/lib/etcd, xfs, "defaults" ]
-              - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
-
-              ssh_pwatuh: True
+             - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
 
   InfraNode1NetworkInterface:
     Type: AWS::EC2::NetworkInterface
