@@ -809,7 +809,6 @@ Resources:
               system_info:
                 default_user:
                   name: cloud-user
-                  plain_text_passwd: 'openshift'
 
               runcmd:
               - ansible-playbook /opt/lab/helpers/fetch_idm_cert.yml
@@ -1110,11 +1109,14 @@ Resources:
                   path: /etc/ansible/hosts
                   owner: cloud-user:cloud-user
 
-              ssh_pwauth: True
-
               mounts:
               - [ /dev/xvdc, /var/lib/etcd, xfs, "defaults" ]
             - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
+
+
+              password: passw0rd
+              chpasswd: { expire: False }
+              ssh_pwauth: True
 
   InfraNode1NetworkInterface:
     Type: AWS::EC2::NetworkInterface
