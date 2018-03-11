@@ -1108,13 +1108,18 @@ Resources:
                     ansible_become=true
                   path: /etc/ansible/hosts
                   owner: cloud-user:cloud-user
+             
+              password: passw0rd
+              ssh_pwauth: True
+              chpasswd:
+                list: |
+                  cloud-user:passw0rd
+                expire: False
 
               mounts:
               - [ /dev/xvdc, /var/lib/etcd, xfs, "defaults" ]
             - { RepoAccount: !Select [0, !Split [",", !Ref QwiklabId]], RepoBranch: !Select [1, !Split [",", !Ref QwiklabId]] }
 
-              password: passw0rd
-              ssh_pwauth: True
 
   InfraNode1NetworkInterface:
     Type: AWS::EC2::NetworkInterface
