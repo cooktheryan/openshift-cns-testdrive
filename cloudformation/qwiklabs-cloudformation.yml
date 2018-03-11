@@ -783,6 +783,7 @@ Resources:
               - disk_setup
               - mounts
               - runcmd
+              - ssh
 
               fs_setup:
               - label: etcd_storage
@@ -808,11 +809,7 @@ Resources:
               system_info:
                 default_user:
                   name: cloud-user
-
-              chpasswd:
-                list: |
-                  cloud-user:openshift
-                expire: false
+                  plain_text_passwd: 'openshift'
 
               runcmd:
               - ansible-playbook /opt/lab/helpers/fetch_idm_cert.yml
